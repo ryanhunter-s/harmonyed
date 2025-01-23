@@ -4,7 +4,7 @@ import { db } from "~/server/db";
 
 export const dynamic = "force-dynamic";
 
-export async function Images() {
+async function Images() {
 	const images = await db.query.posts.findMany({
 		orderBy: (model, {desc}) => desc(model.id)
 	});
