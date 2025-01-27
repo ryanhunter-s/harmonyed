@@ -11,7 +11,7 @@ const auth = (req: NextApiRequest, res: NextApiResponse) => ({ id: "fakeId" }); 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
 		imageUploader: f({
-			image: {maxFileSize: "4MB", maxFileCount: 1},
+			image: {maxFileSize: "4MB", maxFileCount: 10},
 		})
 		.middleware(async ({ req, res }) => {
 			const user = await auth(req, res);
