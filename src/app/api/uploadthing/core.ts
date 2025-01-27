@@ -10,19 +10,20 @@ const auth = (req: NextApiRequest, res: NextApiResponse) => ({ id: "fakeId" }); 
 
 // FileRouter for your app, can contain multiple FileRoutes
 export const ourFileRouter = {
-		imageUploader: f({
-			image: {maxFileSize: "4MB", maxFileCount: 10},
-		})
-		.middleware(async ({ req, res }) => {
-			const user = await auth(req, res);
-
+	imageUploader: f({
+		image: {maxFileSize: "4MB", maxFileCount: 10},
+	})
+	.middleware(async ({ req, res }) => {
+			const user = auth(req, res);
 			// If you throw, the user will not be able to upload
+			// eslint-disable-next-line @typescript-eslint/only-throw-error
 			if (!user) throw new UploadThingError("Unauthorized");
 
 			// Whatever is returned here is accessible in onUploadComplete as `metadata`
 			return { userId: user.id };
 		})
 		.onUploadComplete(async ({ metadata, file }) => {
+			console.log(metadata);
 			await db.insert(posts).values({
 				name: file.name,
 				url: file.url,
