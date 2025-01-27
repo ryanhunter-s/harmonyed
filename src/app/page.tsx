@@ -1,6 +1,7 @@
 import { SignedIn, SignedOut } from "@clerk/nextjs";
-import Link from "next/link";
 import { db } from "~/server/db";
+import { BtnUploadImg } from "./_components/btnuploadimg";
+// import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -22,12 +23,15 @@ async function Images() {
 
 export default async function HomePage() {
 	return (
-		<main className="flex justify-center">
+		<main className="flex justify-center gap-4">
 			<SignedOut>
-				<div className="h-full w-full text-2x1">please Sign In above</div>
+				<div className="grid h-48 grid-cols-2 place-content-center">
+					<p>Please Sign In Above</p>
+				</div>
 			</SignedOut>
 			<SignedIn>
 				<Images/>
+				<BtnUploadImg/>
 			</SignedIn>
 		</main>
 	);
